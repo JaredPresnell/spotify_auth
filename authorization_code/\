@@ -52,19 +52,15 @@ app.get('/spotify/login', function(req, res){
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  //var scope = 'user-read-private user-read-email user-read-playback-state playlist-read-private user-top-read user-read-recently-played user-read-currently-playing user-follow-read user-read-email streaming playlist-read-collaborative user-library-read playlist-modify-public playlist-modify-private playlist-modify';
-   var scope = 'user-read-private user-read-email user-read-playback-state playlist-read-private user-top-read user-read-recently-played user-read-currently-playing user-follow-read user-read-email streaming playlist-read-collaborative user-library-read'; 
-   res.redirect('https://accounts.spotify.com/authorize?' +
-   //res.json({message: 'https://accounts.spotify.com/authorize?' +
+  var scope = 'user-read-private user-read-email user-read-playback-state playlist-read-private user-top-read user-read-recently-played user-read-currently-playing user-follow-read user-read-email streaming playlist-read-collaborative user-library-read playlist-modify-public playlist-modify-private playlist-modify';
+  res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
       client_id: client_id,
       scope: scope,
       redirect_uri: redirect_uri,
       state: state
-    //})});
     }));
-
 });
 
 //app.get('/callback', function(req, res) {
@@ -117,19 +113,17 @@ app.get('/spotify/callback', function(req, res) {
 
         // we can also pass the token to the browser to make requests from there
         //res.redirect('http://localhost:3000/#' +
-        
-        //this was working basically to send back a json with the shit, but 
-        // really i want to not do it like this 
-    //res.json({
-    //    access_token: access_token,
-    //    refresh_token: refresh_token
-    //});
+  
+    res.json({
+        access_token: access_token,
+        refresh_token: refresh_token
+    });
               
-        res.redirect('https://jaredpresnell.me/app/#' +
-         querystring.stringify({
-            access_token: access_token,
-            refresh_token: refresh_token,
-          }));
+      //  res.redirect('https://jaredpresnell.me/#' +
+      //   querystring.stringify({
+      //      access_token: access_token,
+      //      refresh_token: refresh_token,
+      //    }));
       } else {
         res.redirect('/#' +
           querystring.stringify({
